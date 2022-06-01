@@ -116,47 +116,36 @@ with open('dataseet/wordlist-id.txt', 'r') as file:
 def text_proccesing(dokumen):
     # Case Folding
     lower_case = dokumen.lower()
-
     # Tokenizing
     # Username removal
     lower_case = re.sub(r'@[^\s]+', '', lower_case)
-
     # Hastag Removal
     lower_case = re.sub(r'#([^\s]+)', '', lower_case)
-
     # URL removal
     lower_case = re.sub(r'https:[^\s]+', '', lower_case)
-
     # Symbol removal
     lower_case = lower_case.translate(
         str.maketrans("", "", string.punctuation))
-
     # ASCII chars
     lower_case = re.sub(r'[^\x00-\x7f]+', '', lower_case)
-
     # Double spasi
     lower_case = re.sub(r'\s+', ' ', lower_case)
-
     # number removal
     lower_case = re.sub(r"\d+", "", lower_case)
-
     # Token
     tokens = nltk.tokenize.word_tokenize(lower_case)
     freq_tokens = nltk.FreqDist(tokens)
     freq_tokens.plot(30, cumulative=False)
     grafik = plt.show()
-
     # Stemming
     token = str(tokens)
     factorySt = StemmerFactory()
     stemmer = factorySt.create_stemmer()
     hasil_stemming = stemmer.stem(token)
-
     # Stopword Removal
     factorySw = StopWordRemoverFactory()
     stopword = factorySw.create_stop_word_remover()
     hasil_stopword_removal = stopword.remove(hasil_stemming)
-
     # Slang-word converting
     slangwords = dict()
     with open('dataseet/slangword-id.txt') as wordfile:
@@ -169,7 +158,6 @@ def text_proccesing(dokumen):
             word = slangwords[word]
         fixed.append(word)
         hasil_slang_word = ' '.join(fixed)
-
     # Hapus character yang berulang
     pattern = re.compile(r"(.)\1{1,}", re.DOTALL)
     hps_loop_char = ''
