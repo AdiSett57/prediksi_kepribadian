@@ -5,6 +5,7 @@ import pandas as pd
 import nltk
 import re
 import string
+import skmultilearn
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 import matplotlib.pyplot as plt
