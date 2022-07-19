@@ -1,28 +1,19 @@
 import streamlit as st
-import streamlit_authenticator as stauth
-import yaml
-from yaml import Loader
-import mysql.connector
 import tweepy
 import data_api
 import pandas as pd
-import numpy as np
 import nltk
 import enchant
 import re
 import string
-import seaborn as sns
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, hamming_loss
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-from sklearn import svm
-from skmultilearn.problem_transform import LabelPowerset
 from skmultilearn.problem_transform import BinaryRelevance
-import time
 import xlrd
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
