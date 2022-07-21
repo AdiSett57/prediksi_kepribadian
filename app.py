@@ -1,20 +1,20 @@
 import streamlit as st
+import xlrd
+import nltk
+from skmultilearn.problem_transform import BinaryRelevance
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.feature_extraction.text import CountVectorizer
+import matplotlib.pyplot as plt
+from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
+import string
+import re
 import tweepy
 import data_api
 import pandas as pd
-import nltk
-import re
-import string
-import skmultilearn
-from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
-from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
-import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from skmultilearn.problem_transform import BinaryRelevance
-import xlrd
+nltk.download('punkt')
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.set_page_config(
