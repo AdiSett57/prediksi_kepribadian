@@ -261,7 +261,6 @@ def privasi():
         '**Privasi Pengguna :** _aplikasi ini tidak menyimpan, menyalin atau mengambil informasi apapun dari akun twitter yang diinputkan oleh pengguna, semua data pengguna otomatis akan hilang setelah pengguna meninggalkan aplikasi._')
 
 
-@st.cache(suppress_st_warning=True)
 def crawling(nama_pengguna):
     api_key = data_api.API_KEY
     api_key_secret = data_api.API_SECRET
