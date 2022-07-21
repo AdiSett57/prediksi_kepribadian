@@ -14,6 +14,7 @@ import re
 import tweepy
 import data_api
 import pandas as pd
+import time
 nltk.download('punkt')
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -72,7 +73,6 @@ def naive_klasifikasi(a):
     return clf_predictions
 
 
-@st.cache(suppress_st_warning=True)
 def run_klasifikasi(dat):
     b = naive_klasifikasi(dat)
     st.markdown('**Hasil Klasifikasi Kepribadian :**')
@@ -261,7 +261,6 @@ def privasi():
         '**Privasi Pengguna :** _aplikasi ini tidak menyimpan, menyalin atau mengambil informasi apapun dari akun twitter yang diinputkan oleh pengguna, semua data pengguna otomatis akan hilang setelah pengguna meninggalkan aplikasi._')
 
 
-@st.cache(suppress_st_warning=True)
 def crawling(nama_pengguna):
     api_key = data_api.API_KEY
     api_key_secret = data_api.API_SECRET
@@ -270,7 +269,7 @@ def crawling(nama_pengguna):
     auth = tweepy.OAuthHandler(api_key, api_key_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
-    if nama_pengguna != '':
+    if nama_pengguna:
         limit = 100
         tweets = tweepy.Cursor(api.user_timeline, screen_name=nama_pengguna,
                                count=70, tweet_mode="extended").items(limit)
@@ -349,6 +348,9 @@ def crawling(nama_pengguna):
             st.write("Username : @", tweet.user.screen_name)
             st.markdown("**_Lima_ Tweet Terbaru :**")
         tabel_tweet = st.table(df[:5])
+        with st.spinner('Wait for it...'):
+            time.sleep(5)
+            st.success('Done!')
         run_klasifikasi(dat)
         st.markdown(
             """<hr style="height:2px;border:none;color:#333;background-color:#333;margin-top:5px;" /> """, unsafe_allow_html=True)
@@ -360,12 +362,10 @@ def crawling(nama_pengguna):
 
 
 st.title("Sistem Klasifikasi Kepribadian Berdasarkan Postingan di Twitter")
-nama_pengguna = ''
 st.sidebar.subheader("Masukkan username Twitter")
-st.sidebar.markdown(
-    """<hr style="height:2px;border:none;color:#333;background-color:#333;margin-top:5px;" /> """, unsafe_allow_html=True)
-
 nama_pengguna = st.sidebar.text_input(
-    "Username Twitter", placeholder="masukkan username")
+    "Username Twitter", placeholder="masukkan username", autocomplete=None, on_change=None)
 st.sidebar.button("klasifikasi", key=None, help=None,
                   on_click=crawling(nama_pengguna), disabled=False)
+st.sidebar.markdown(
+    """<hr style="height:2px;border:none;color:#333;background-color:#333;margin-top:5px;" /> """, unsafe_allow_html=True)
