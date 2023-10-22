@@ -281,7 +281,7 @@ def crawling(nama_pengguna):
 
     if nama_pengguna:
         limit = 100
-        tweets = Client.get_users_tweets(nama_pengguna, end_time=None, exclude=None, expansions=None, max_results=limit, media_fields=None, pagination_token=None,
+        tweets = client.get_users_tweets(nama_pengguna, end_time=None, exclude=None, expansions=None, max_results=limit, media_fields=None, pagination_token=None,
                                          place_fields=None, poll_fields=None, since_id=None, start_time=None, tweet_fields=None, until_id=None, user_fields=None, user_auth=False)
         # tweets = tweepy.Cursor(api.user_timeline, screen_name=nama_pengguna,
         #                        count=70, tweet_mode="extended").items(limit)
