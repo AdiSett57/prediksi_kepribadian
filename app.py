@@ -262,8 +262,8 @@ def privasi():
 
 
 def crawling(nama_pengguna):
-    api_key = data_api.API_KEY
-    api_key_secret = data_api.API_SECRET
+    consumer_key = data_api.API_KEY
+    consumer_secret = data_api.API_SECRET
     access_token = data_api.ACCESS_TOKEN
     access_token_secret = data_api.ACCESS_TOKEN_SECRET
     # auth = tweepy.OAuth1UserHandler(api_key, api_key_secret)
@@ -271,20 +271,17 @@ def crawling(nama_pengguna):
     # auth = tweepy.OAuth1UserHandler(
     # api_key, api_key_secret, access_token, access_token_secret
     # )
-    # auth = tweepy.OAuth2AppHandler(
-    #     "4e2mUZdg97SifFCl9sKRSpqty", "FePBJEvPIrT2f1kF9XxRccFFGYrAmGcNKiUa5h8bDaoWWYM4cx"
-    # )
     # api = tweepy.API(auth)
 
-    client = tweepy.Client(consumer_key=api_key, consumer_secret=api_key_secret,
-                           access_token=access_token, access_token_secret=access_token_secret)
+    l = StdOutListener()
+    auth = OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+    api = Stream(auth, l)
 
     if nama_pengguna:
         limit = 100
-        tweets = client.get_users_tweets(nama_pengguna, end_time=None, exclude=None, expansions=None, max_results=limit, media_fields=None, pagination_token=None,
-                                         place_fields=None, poll_fields=None, since_id=None, start_time=None, tweet_fields=None, until_id=None, user_fields=None, user_auth=False)
-        # tweets = tweepy.Cursor(api.user_timeline, screen_name=nama_pengguna,
-        #                        count=70, tweet_mode="extended").items(limit)
+        tweets = tweepy.Cursor(api.user_timeline, screen_name=nama_pengguna,
+                               count=70, tweet_mode="extended").items(limit)
         columns = ['Tweet']
         hide_table_row_index = """
                 <style>
