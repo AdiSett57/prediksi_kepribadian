@@ -266,17 +266,12 @@ def crawling(nama_pengguna):
     consumer_secret = data_api.API_SECRET
     access_token = data_api.ACCESS_TOKEN
     access_token_secret = data_api.ACCESS_TOKEN_SECRET
-    # auth = tweepy.OAuth1UserHandler(api_key, api_key_secret)
-    # auth.set_access_token(access_token, access_token_secret)
-    # auth = tweepy.OAuth1UserHandler(
-    # api_key, api_key_secret, access_token, access_token_secret
-    # )
-    # api = tweepy.API(auth)
-
-    l = StdOutListener()
-    auth = OAuthHandler(consumer_key, consumer_secret)
+    auth = tweepy.OAuth1UserHandler(api_key, api_key_secret)
     auth.set_access_token(access_token, access_token_secret)
-    api = Stream(auth, l)
+    auth = tweepy.OAuth1UserHandler(
+        api_key, api_key_secret, access_token, access_token_secret
+    )
+    api = tweepy.API(auth)
 
     if nama_pengguna:
         limit = 100
