@@ -266,7 +266,7 @@ def crawling(nama_pengguna):
     consumer_secret = data_api.API_SECRET
     access_token = data_api.ACCESS_TOKEN
     access_token_secret = data_api.ACCESS_TOKEN_SECRET
-    auth = tweepy.OAuth1UserHandler(api_key, api_key_secret)
+    auth = tweepy.OAuth1UserHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     auth = tweepy.OAuth1UserHandler(
         api_key, api_key_secret, access_token, access_token_secret
